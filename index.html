@@ -891,13 +891,15 @@ function generatePDF(){
   var rows=data.map(function(v){return [v.srNo,v.name,v.age||'',v.gender==='Male'?'M':'F',v.epic,v.photo||'OK',v.mappingType,v.acPartSrNo||'-',v.relativeName||'-',v.card||'-',v.status||'Pending',v.mobile||'-',v.address||'-'];});
 
   doc.autoTable({head:heads,body:rows,startY:26,theme:'grid',
-    styles:{fontSize:7,cellPadding:1.5,overflow:'linebreak',lineWidth:0.2},
-    headStyles:{fillColor:[26,35,126],textColor:255,fontStyle:'bold',fontSize:7,halign:'center'},
-    alternateRowStyles:{fillColor:[245,245,245]},
-    columnStyles:{0:{cellWidth:8,halign:'center'},1:{cellWidth:35},2:{cellWidth:8,halign:'center'},3:{cellWidth:8,halign:'center'},4:{cellWidth:22,fontStyle:'bold'},5:{cellWidth:14},6:{cellWidth:14},7:{cellWidth:20},8:{cellWidth:30},9:{cellWidth:14},10:{cellWidth:16},11:{cellWidth:20},12:{cellWidth:35}},
-    didParseCell:function(d){if(d.section==='body'){if(d.row.raw[6]==='S.I.R.')d.cell.styles.fillColor=[255,243,224];if(d.column.index===5&&d.cell.raw==='Blurred Photo'){d.cell.styles.textColor=[173,20,87];d.cell.styles.fontStyle='bold';}}},
-    didDrawPage:function(){doc.setFontSize(7);doc.setTextColor(100);doc.text('BLO: Anand Kathalewar | 8208533879 | 52-Nagpur South West, Part 22',pw/2,pageH-5,{align:'center'});doc.text('Page '+doc.internal.getCurrentPageInfo().pageNumber,pw-10,pageH-5,{align:'right'});},
-    margin:{top:26,bottom:10,left:5,right:5}
+    styles:{fontSize:7.5,cellPadding:{top:1.8,right:1.5,bottom:1.8,left:1.5},overflow:'linebreak',lineWidth:0.15,lineColor:[0,0,0],textColor:[0,0,0]},
+    headStyles:{fillColor:[30,30,30],textColor:255,fontStyle:'bold',fontSize:7.5,halign:'center',cellPadding:{top:2.5,right:1.5,bottom:2.5,left:1.5}},
+    bodyStyles:{fillColor:false},
+    alternateRowStyles:{fillColor:false},
+    columnStyles:{0:{cellWidth:12,halign:'center',fontStyle:'bold'},1:{cellWidth:'auto'},2:{cellWidth:10,halign:'center'},3:{cellWidth:9,halign:'center'},4:{cellWidth:24,fontStyle:'bold'},5:{cellWidth:16},6:{cellWidth:16},7:{cellWidth:22},8:{cellWidth:'auto'},9:{cellWidth:16},10:{cellWidth:18},11:{cellWidth:22},12:{cellWidth:'auto'}},
+    tableWidth:'auto',
+    didParseCell:function(d){if(d.section==='body'&&d.row.index%2===0){d.cell.styles.fillColor=false;}if(d.section==='body'&&d.column.index===5&&d.cell.raw==='Blurred Photo'){d.cell.styles.fontStyle='bold';}},
+    didDrawPage:function(){doc.setFontSize(7);doc.setTextColor(80);doc.text('BLO: Anand Kathalewar | 8208533879 | 52-Nagpur South West, Part 22',pw/2,pageH-5,{align:'center'});doc.text('Page '+doc.internal.getCurrentPageInfo().pageNumber,pw-4,pageH-5,{align:'right'});},
+    margin:{top:26,bottom:10,left:4,right:4}
   });
 
   var fn='SIR_Report';
